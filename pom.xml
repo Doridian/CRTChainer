@@ -26,6 +26,14 @@
                     <execution>
                         <configuration>
                             <minimizeJar>true</minimizeJar>
+                            <filters>
+                                <filter>
+                                    <artifact>org.bouncycastle:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                         <phase>package</phase>
                         <goals>
@@ -42,7 +50,7 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <addClasspath>true</addClasspath>
+                            <addClasspath>false</addClasspath>
                             <mainClass>se.foxba.sslchain.util.Main</mainClass>
                         </manifest>
                     </archive>
