@@ -1,8 +1,8 @@
-package de.doridian.crtchainer;
+package se.foxba.sslchain.lib;
 
-import de.doridian.crtchainer.lib.CALibrary;
-import de.doridian.crtchainer.lib.CRTLoader;
-import de.doridian.crtchainer.lib.X509CertificateChainBuilder;
+import se.foxba.sslchain.lib.CALibrary;
+import se.foxba.sslchain.lib.CRTLoader;
+import se.foxba.sslchain.lib.X509CertificateChainBuilder;
 import org.bouncycastle.openssl.PEMWriter;
 
 import java.io.File;

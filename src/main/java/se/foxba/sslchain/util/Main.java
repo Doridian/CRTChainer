@@ -1,4 +1,6 @@
-package de.doridian.crtchainer;
+package se.foxba.sslchain.util;
+
+import se.foxba.sslchain.lib.IChainer;
 
 import java.io.File;
 

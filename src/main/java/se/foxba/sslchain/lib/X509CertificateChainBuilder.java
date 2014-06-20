@@ -29,7 +29,7 @@
  *
  */
 
-package de.doridian.crtchainer.lib;
+package se.foxba.sslchain.lib;
 
 import java.security.*;
 import java.security.cert.CertificateException;
