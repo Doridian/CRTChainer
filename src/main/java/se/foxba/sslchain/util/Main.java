@@ -1,6 +1,6 @@
 package se.foxba.sslchain.util;
 
-import se.foxba.sslchain.lib.IChainer;
+import se.foxba.sslchain.lib.IFileChainer;
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class Main {
 		if(in.isDirectory())
 			out.mkdirs();
 
-		new IChainer(caLibraryFile, intermediatesOnly) {
+		new IFileChainer(caLibraryFile, intermediatesOnly) {
 			@Override
 			public File transformFile(File in) {
 				return new File(out, in.getName());
