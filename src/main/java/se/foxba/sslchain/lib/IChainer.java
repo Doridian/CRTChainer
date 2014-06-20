@@ -1,11 +1,11 @@
 package se.foxba.sslchain.lib;
 
-import se.foxba.sslchain.lib.CALibrary;
-import se.foxba.sslchain.lib.CRTLoader;
-import se.foxba.sslchain.lib.X509CertificateChainBuilder;
 import org.bouncycastle.openssl.PEMWriter;
 
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.security.Security;
 import java.security.cert.X509Certificate;
 

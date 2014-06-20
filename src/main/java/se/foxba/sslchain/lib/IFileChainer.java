@@ -1,12 +1,8 @@
 package se.foxba.sslchain.lib;
 
-import org.bouncycastle.openssl.PEMWriter;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.security.cert.X509Certificate;
 
 public abstract class IFileChainer extends IChainer {
 	public abstract File transformFile(File in);
