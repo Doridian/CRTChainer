@@ -10,20 +10,18 @@ import java.security.Security;
 import java.security.cert.X509Certificate;
 
 public abstract class IChainer {
-	protected final boolean intermediatesOnly;
 	protected final CALibrary caLibrary;
 
 	static {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 	}
 
-	protected IChainer(File caLibraryFile, boolean intermediatesOnly) {
+	protected IChainer(File caLibraryFile) {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 		this.caLibrary = new CALibrary(caLibraryFile);
-		this.intermediatesOnly = intermediatesOnly;
 	}
 
-	public void convert(InputStream in, OutputStream out) {
+	public void convert(InputStream in, OutputStream out, boolean intermediatesOnly) {
 		try {
 			CRTLoader crtLoader = new CRTLoader(in);
 			X509Certificate[] chain = X509CertificateChainBuilder.buildPath(crtLoader, caLibrary);

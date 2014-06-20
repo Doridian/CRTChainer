@@ -27,19 +27,19 @@ public class Main {
 		if(in.isDirectory()) {
 			out.mkdirs();
 
-			new IFileChainer(caLibraryFile, intermediatesOnly) {
+			new IFileChainer(caLibraryFile) {
 				@Override
 				public File transformFile(File in) {
 					return new File(out, in.getName());
 				}
-			}.convert(in);
+			}.convert(in, intermediatesOnly);
 		} else {
-			new IFileChainer(caLibraryFile, intermediatesOnly) {
+			new IFileChainer(caLibraryFile) {
 				@Override
 				public File transformFile(File in) {
 					return out;
 				}
-			}.convert(in);
+			}.convert(in, intermediatesOnly);
 		}
 	}
 }
