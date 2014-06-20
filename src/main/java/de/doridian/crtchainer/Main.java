@@ -1,19 +1,8 @@
 package de.doridian.crtchainer;
 
-import de.doridian.crtchainer.lib.CALibrary;
-import de.doridian.crtchainer.lib.CRTLoader;
-import de.doridian.crtchainer.lib.X509CertificateChainBuilder;
-import org.bouncycastle.openssl.PEMWriter;
-
 import java.io.File;
-import java.io.FileWriter;
-import java.security.Security;
-import java.security.cert.X509Certificate;
 
 public class Main {
-	private static CALibrary caLibrary;
-	private static boolean intermediatesOnly = false;
-
 	private static boolean isTruthy(String val) {
 		if(val == null)
 			return false;
@@ -27,34 +16,17 @@ public class Main {
 			return;
 		}
 
-		intermediatesOnly = isTruthy(System.getProperty("intermediatesOnly"));
+		final boolean intermediatesOnly = isTruthy(System.getProperty("intermediatesOnly"));
+		final File caLibraryFile = new File(args[0]);
 
-		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		final File in = new File(args[1]);
+		final File out = new File(args[2]);
 
-		caLibrary = new CALibrary(new File(args[0]));
-
-		File in = new File(args[1]);
-		File out = new File(args[2]);
-		if(in.isDirectory()) {
-			out.mkdirs();
-			for(File file : in.listFiles()) {
-				convert(file, new File(out, file.getName()));
+		new IChainer(caLibraryFile, intermediatesOnly) {
+			@Override
+			public File transformFile(File in, File out) {
+				return new File(out, in.getName());
 			}
-		} else {
-			convert(in, out);
-		}
-	}
-
-	private static void convert(File in, File out) {
-		try {
-			CRTLoader crtLoader = new CRTLoader(in);
-			X509Certificate[] chain = X509CertificateChainBuilder.buildPath(crtLoader, caLibrary);
-			PEMWriter crtWriter = new PEMWriter(new FileWriter(out));
-			for(int i = (intermediatesOnly ? 1 : 0); i < chain.length; i++)
-				crtWriter.writeObject(chain[i]);
-			crtWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		}.convert(in, out);
 	}
 }
