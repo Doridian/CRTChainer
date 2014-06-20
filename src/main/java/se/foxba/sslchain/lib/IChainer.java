@@ -16,8 +16,7 @@ public abstract class IChainer {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 	}
 
-	protected IChainer(File caLibraryFile) {
-		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+	protected IChainer(File caLibraryFile) {;
 		this.caLibrary = new CALibrary(caLibraryFile);
 	}
 
