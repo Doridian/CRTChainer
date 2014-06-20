@@ -12,12 +12,22 @@ import java.security.cert.X509Certificate;
 
 public class Main {
 	private static CALibrary caLibrary;
+	private static boolean intermediatesOnly = false;
+
+	private static boolean isTruthy(String val) {
+		if(val == null)
+			return false;
+		val = val.toLowerCase();
+		return val.equals("1") || val.equals("true") || val.equals("y") || val.equals("yes") || val.equals("on");
+	}
 
 	public static void main(String[] args) {
 		if(args.length != 3)  {
 			System.err.println("Usage: crtchainer [CADir/CAFile] [in] [out]");
 			return;
 		}
+
+		intermediatesOnly = isTruthy(System.getProperty("intermediatesOnly"));
 
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
@@ -40,7 +50,7 @@ public class Main {
 			CRTLoader crtLoader = new CRTLoader(in);
 			X509Certificate[] chain = X509CertificateChainBuilder.buildPath(crtLoader, caLibrary);
 			PEMWriter crtWriter = new PEMWriter(new FileWriter(out));
-			for(int i = 0; i < chain.length; i++)
+			for(int i = (intermediatesOnly ? 1 : 0); i < chain.length; i++)
 				crtWriter.writeObject(chain[i]);
 			crtWriter.close();
 		} catch (Exception e) {
