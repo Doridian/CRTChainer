@@ -24,14 +24,22 @@ public class Main {
 		final File in = new File(args[1]);
 		final File out = new File(args[2]);
 
-		if(in.isDirectory())
+		if(in.isDirectory()) {
 			out.mkdirs();
 
-		new IFileChainer(caLibraryFile, intermediatesOnly) {
-			@Override
-			public File transformFile(File in) {
-				return new File(out, in.getName());
-			}
-		}.convert(in);
+			new IFileChainer(caLibraryFile, intermediatesOnly) {
+				@Override
+				public File transformFile(File in) {
+					return new File(out, in.getName());
+				}
+			}.convert(in);
+		} else {
+			new IFileChainer(caLibraryFile, intermediatesOnly) {
+				@Override
+				public File transformFile(File in) {
+					return out;
+				}
+			}.convert(in);
+		}
 	}
 }
