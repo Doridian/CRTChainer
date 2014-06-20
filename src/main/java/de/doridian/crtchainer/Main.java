@@ -22,11 +22,14 @@ public class Main {
 		final File in = new File(args[1]);
 		final File out = new File(args[2]);
 
+		if(in.isDirectory())
+			out.mkdirs();
+
 		new IChainer(caLibraryFile, intermediatesOnly) {
 			@Override
-			public File transformFile(File in, File out) {
+			public File transformFile(File in) {
 				return new File(out, in.getName());
 			}
-		}.convert(in, out);
+		}.convert(in);
 	}
 }

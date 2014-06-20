@@ -24,17 +24,14 @@ public abstract class IChainer {
 		this.intermediatesOnly = intermediatesOnly;
 	}
 
-	public abstract File transformFile(File in, File out);
+	public abstract File transformFile(File in);
 
-	public void convert(File in, File out) {
-		if(in.isDirectory()) {
-			out.mkdirs();
-			for(File file : in.listFiles()) {
-				_convert(file, transformFile(file, out));
-			}
-		} else {
-			_convert(in, transformFile(in, out));
-		}
+	public void convert(File in) {
+		if(in.isDirectory())
+			for(File file : in.listFiles())
+				_convert(file, transformFile(file));
+		 else
+			_convert(in, transformFile(in));
 	}
 
 	private void _convert(File in, File out) {
