@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-public class IStringChainer extends IChainer {
-	public IStringChainer(File caLibraryFile, boolean intermediatesOnly) {
+public class MemoryChainer extends IChainer {
+	public MemoryChainer(File caLibraryFile, boolean intermediatesOnly) {
 		super(caLibraryFile, intermediatesOnly);
 	}
 
